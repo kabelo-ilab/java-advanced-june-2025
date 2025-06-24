@@ -23,9 +23,18 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * Sets account number to a new account number
+     * @param accNum The new account number
+     */
     private void setAccountNum(String accNum){
         this.accountNum = "EF-" + accNum;
     }
+
+    /**
+     * Returns the current account number
+     * @return account number
+     */
     public String getAccountNum() {
         return this.accountNum;
     }
@@ -48,12 +57,28 @@ public class Account {
         return this.accountHolder;
     }
 
+
+    /**
+     * Increase the balance of the current account
+     * @param amount The amount to be deposited into the account
+     */
     public void deposit(double amount){
         this.balance = this.balance + amount;
     }
+
+    /**
+     * Decrease the balance of the current account
+     * @param amount The amount to be withdrawn from the account
+     */
     public void withdraw(double amount){
         this.balance = this.balance - amount;
     }
+
+    /**
+     * Transfers amount from current account to target account
+     * @param targetAccount The account to receive the funds
+     * @param amountToTransfer The amount to transfer
+     */
     public void transfer(Account targetAccount, double amountToTransfer){
         //this.balance = this.balance - amountToTransfer;
         this.withdraw(amountToTransfer);

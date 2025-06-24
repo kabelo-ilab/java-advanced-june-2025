@@ -1,7 +1,4 @@
 package chapter7;
-
-import java.util.Scanner;
-
 public class AccountRunner {
     public static void main(String[] args) {
 
