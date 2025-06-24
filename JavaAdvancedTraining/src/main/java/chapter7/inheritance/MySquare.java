@@ -1,7 +1,16 @@
 package chapter7.inheritance;
 
+/**
+ * The type My square.
+ * @author Kabelo Tlhape
+ */
 public class MySquare extends MyShape {
 
+    /**
+     * Instantiates a new My square.
+     *
+     * @param side the side
+     */
     public MySquare(int side){
         super(side,0);
     }

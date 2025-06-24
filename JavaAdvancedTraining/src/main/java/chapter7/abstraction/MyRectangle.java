@@ -1,8 +1,17 @@
 package chapter7.abstraction;
 
+/**
+ * The type My rectangle.
+ */
 public class MyRectangle extends MyShape {
     private int length, width;
 
+    /**
+     * Instantiates a new My rectangle.
+     *
+     * @param length the length
+     * @param width  the width
+     */
     public MyRectangle(int length, int width) {
         this.length = length;
         this.width = width;
@@ -20,6 +29,5 @@ public class MyRectangle extends MyShape {
                 + "Area =" + this.getArea();
     }
 
-    //draw the shape
-    //paint
+
 }
