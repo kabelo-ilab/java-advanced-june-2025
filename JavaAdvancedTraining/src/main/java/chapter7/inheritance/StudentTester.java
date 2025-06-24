@@ -6,5 +6,7 @@ public class StudentTester {
         PartTimeStudent objSt = new PartTimeStudent("ST12345", "John", "Smith", "SQL", true);
         objSt.displayDetails();
 
+
+
     }
 }

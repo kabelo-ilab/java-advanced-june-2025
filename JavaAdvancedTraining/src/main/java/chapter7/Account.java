@@ -22,6 +22,7 @@ public class Account {
         this.accountType = accType;
         this.balance = balance;
     }
+
     private void setAccountNum(String accNum){
         this.accountNum = "EF-" + accNum;
     }
@@ -54,15 +55,6 @@ public class Account {
         this.balance = this.balance - amount;
     }
     public void transfer(Account targetAccount, double amountToTransfer){
-        /*
-        Transfer R500 from cheque to savings
-        Acc1 : cheque (2000) - 500
-        * Acc2 : savings (1000) + 500
-        *
-        Acc1.transfer(Acc2, 500)
-        Acc1.balance = Acc1.balance - amount
-        Acc2.balance = Acc2.balance + amount
-        * */
         //this.balance = this.balance - amountToTransfer;
         this.withdraw(amountToTransfer);
         //targetAccount.balance = targetAccount.balance + amountToTransfer;
