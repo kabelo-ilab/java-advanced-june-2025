@@ -32,13 +32,28 @@ public class Product {
      * Sell the product.
      *
      * @param qtyToSell the quantity to sell
-     * @throws LowStockException if the {@param qtyToSell} is more than the available quantity in stock
+     * @throws LowStockException if the {@code qtyToSell} is more than the available quantity in stock
      */
     public void sell(int qtyToSell) throws LowStockException{
         if (qtyToSell > qtyInStock){
-            throw new LowStockException("Not enough quantity to sell. \nThe current quantity in stock is: " + getQtyInStock());
+            throw new LowStockException("Not enough quantity to sell " + getDescription() + ". \nThe current quantity in stock is: " + getQtyInStock() +
+                    "\nThe requested quantity is: " + qtyToSell);
         }
         this.qtyInStock = this.qtyInStock - qtyToSell;
+    }
+
+    /**
+     * Increase the price of the product by a {@code percentage}
+     * @param percentage percentage to increase the price
+     * @throws HighPriceIncreaseException when the increase amount is more than 10
+     */
+    public void increasePrice(double percentage) throws HighPriceIncreaseException{
+        double increase = this.price * (percentage / 100);
+        if (increase > 10){
+            throw new HighPriceIncreaseException("The price increase on " + getDescription() +
+                    " is too high [" + increase + "]");
+        }
+        this.price = this.price + increase;
     }
 
     /**
@@ -71,7 +86,7 @@ public class Product {
     /**
      * Sets code.
      *
-     * @param code the code
+     * @param code the product code
      */
     public void setCode(String code) {
         this.code = code;
@@ -80,7 +95,7 @@ public class Product {
     /**
      * Gets description.
      *
-     * @return the {@code String} description
+     * @return the {@code String} product description
      */
     public String getDescription() {
         return description;
