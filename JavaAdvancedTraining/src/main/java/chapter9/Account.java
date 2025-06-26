@@ -115,7 +115,11 @@ public class Account {
      *
      * @param amount The amount to be withdrawn from the account
      */
-    public void withdraw(double amount){
+    public void withdraw(double amount) throws InsufficientFundsException{
+        if (this.balance < amount){
+            throw new InsufficientFundsException("Insufficient funds! Not enough balance.\n" +
+                    "Current balance: " + getBalance() + "\nWithdrawal Amount: " + amount);
+        }
         this.balance = this.balance - amount;
     }
 
@@ -125,10 +129,13 @@ public class Account {
      * @param targetAccount    The account to receive the funds
      * @param amountToTransfer The amount to transfer
      */
-    public void transfer(Account targetAccount, double amountToTransfer){
-        //this.balance = this.balance - amountToTransfer;
+    public void transfer(Account targetAccount, double amountToTransfer) throws InsufficientFundsException{
+
+        if (this.balance < amountToTransfer){
+            throw new InsufficientFundsException("Transfer failed. You cannot transfer more than the remaining balance. \n" +
+                    "Current balance: " + getBalance() + "\nAmount to transfer: " + amountToTransfer);
+        }
         this.withdraw(amountToTransfer);
-        //targetAccount.balance = targetAccount.balance + amountToTransfer;
         targetAccount.deposit(amountToTransfer);
     }
 

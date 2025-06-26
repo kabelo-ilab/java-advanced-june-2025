@@ -1,10 +1,6 @@
 package chapter9;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
@@ -20,13 +16,15 @@ class AccountTest {
     void getAccountType() {
         //Arrange
         String expected = "Cheque";
-
         //Actual
         String actual = objAccount.getAccountType();
-
         //Assert
         assertEquals(expected, actual);
     }
+
+    /*Create a parameterized test method (testAccountTypes) that will have the following
+    string values:
+    * Debit,  Savings,  Cheque, Credit */
 
     @Test
     @DisplayName("Deposit into current account")
@@ -41,7 +39,6 @@ class AccountTest {
 
         //Assert
         assertEquals(expected, actual);
-
     }
 
     @Test
@@ -50,34 +47,60 @@ class AccountTest {
         //Arrange
         double amountToWithdraw = 300;//1500 - 300
         double expected = 1200;
+        try{
+            //Actual
+            objAccount.withdraw(amountToWithdraw);
+            double actual = objAccount.getBalance();
 
-        //Actual
-        objAccount.withdraw(amountToWithdraw);
-        double actual = objAccount.getBalance();
-
-        //Assert
-        assertEquals(expected, actual);
+            //Assert
+            assertEquals(expected, actual);
+        }catch (InsufficientFundsException ex){
+            System.err.println(ex.getMessage());
+        }
 
     }
 
     @Test
+    void withdrawalInsufficientFunds(){
+        //Arrange
+        double amountToWithdraw = 2000;
+        //Assert
+        assertThrows(InsufficientFundsException.class, () -> objAccount.withdraw(amountToWithdraw));
+    }
+
+    @Test
+    void transferInsufficientFunds(){
+        //Arrange
+        Account objTargetAccount = new Account("2467895", 1000, "Tom");
+        double amountToTransfer = 2000;
+        //Assert
+        assertThrows(InsufficientFundsException.class, () -> objAccount.transfer(objTargetAccount, amountToTransfer));
+    }
+
+    @Test
     @DisplayName("Transfer from current account to target account")
-    void transfer() {
+    void transfer()  {
         //Arrange
         Account objTargetAccount = new Account("2467895", 1000, "Tom");
         double amountToTransfer = 200;
 
-        //Actual
-        objAccount.transfer(objTargetAccount, amountToTransfer);
-        double currentAccountBalance = objAccount.getBalance();
-        double targetAccountBalance = objTargetAccount.getBalance();
-        //Assert
-       // assertEquals((currentAccountBalance == 1300), (targetAccountBalance == 1200));
+        try{
+            //Actual
+            objAccount.transfer(objTargetAccount, amountToTransfer);
+            double currentAccountBalance = objAccount.getBalance();
+            double targetAccountBalance = objTargetAccount.getBalance();
 
-        assertAll(
-                () -> assertEquals(1300, currentAccountBalance),
-                () -> assertEquals(1200, targetAccountBalance)
-        );
+            //Assert
+            // assertEquals((currentAccountBalance == 1300), (targetAccountBalance == 1200));
+
+            assertAll(
+                    () -> assertEquals(1300, currentAccountBalance),
+                    () -> assertEquals(1200, targetAccountBalance)
+            );
+        }catch (InsufficientFundsException e){
+            System.err.println(e.getMessage());
+        }
+
 
     }
 }
