@@ -1,6 +1,8 @@
 package chapter9;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
@@ -22,9 +24,16 @@ class AccountTest {
         assertEquals(expected, actual);
     }
 
-    /*Create a parameterized test method (testAccountTypes) that will have the following
-    string values:
-    * Debit,  Savings,  Cheque, Credit */
+    @ParameterizedTest
+    @CsvSource(value = {"Debit,30", "Savings,500", "Cheque,7000", "Credit,20000"})
+    void testAccountTypes(String accountType, double balance){
+        //Arrange
+        Account objAcc = new Account("7894562",balance,"Jessica");
+        //Actual
+        String actual = objAcc.getAccountType();//Savings
+        //Assert
+        assertEquals(accountType, actual);
+    }
 
     @Test
     @DisplayName("Deposit into current account")
@@ -101,6 +110,10 @@ class AccountTest {
             System.err.println(e.getMessage());
         }
 
+    }
 
+    @AfterAll
+    static void tearDown(){
+        objAccount.displayDetails();
     }
 }

@@ -52,13 +52,13 @@ public class Account {
 
     public String getAccountType(){
 
-        if (this.balance >= 0 && this.balance <= 50){
+        if (this.balance >= 0 && this.balance <= 50){//30
             this.accountType = "Debit";
-        } else if (this.balance > 50 && this.balance <= 1000) {
+        } else if (this.balance > 50 && this.balance <= 1000) {//500
             this.accountType = "Savings";
-        } else if (this.balance > 1000 && this.balance <= 15000) {
+        } else if (this.balance > 1000 && this.balance <= 15000) {//7000
             this.accountType = "Cheque";
-        } else if (this.balance > 15000) {
+        } else if (this.balance > 15000) {//20000
             this.accountType = "Credit";
         }
         return this.accountType;
@@ -138,7 +138,6 @@ public class Account {
         this.withdraw(amountToTransfer);
         targetAccount.deposit(amountToTransfer);
     }
-
 
     /**
      * Display details.
